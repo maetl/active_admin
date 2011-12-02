@@ -15,28 +15,28 @@ module ActiveAdmin
         # Render's the index configuration that was set in the
         # controller. Defaults to rendering the ActiveAdmin::Pages::Index::Table
         def main_content
-          text_node(form_tag active_admin_config.batch_action_path, :id => "collection_selection")
-          div :class => "table_tools" do
-            a :class => 'table_tools_button disabled', :href => "#", :id => "batch_actions_button" do
-              text_node "Batch Actions"
-              span :class => "arrow"
-            end
+          batch_action_form do
+            div :class => "table_tools" do
+              a :class => 'table_tools_button disabled', :href => "#", :id => "batch_actions_button" do
+                text_node "Batch Actions"
+                span :class => "arrow"
+              end
             
-            build_scopes
-          end
+              build_scopes
+            end
 
-          build_batch_action_popover
+            build_batch_action_popover
 
-          if collection.any?
-            render_index
-          else
-            if params[:q]
-              render_empty_results
+            if collection.any?
+              render_index
             else
-              render_blank_slate
+              if params[:q]
+                render_empty_results
+              else
+                render_blank_slate
+              end
             end
           end
-          text_node('</form>'.html_safe)
         end
 
         protected

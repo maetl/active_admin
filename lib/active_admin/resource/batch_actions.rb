@@ -15,7 +15,7 @@ module ActiveAdmin
       
       # @return [ActiveAdmin::BatchAction] The default "delete" action
       def default_batch_action
-        action = ActiveAdmin::BatchAction.new :destroy, I18n.t('active_admin.delete'), :sort_order => 100, :confirm => I18n.t('active_admin.delete_confirmation') do |selection|
+        action = ActiveAdmin::BatchAction.new :destroy, I18n.t('active_admin.delete'), :priority => 100, :confirm => I18n.t('active_admin.delete_confirmation') do |selection|
           selection.each { |r| r.destroy }
           redirect_to collection_path, :notice => "#{selection.length} #{selection.length == 1 ? active_admin_config.resource_name : active_admin_config.plural_resource_name} Deleted"
         end
@@ -87,13 +87,13 @@ module ActiveAdmin
     end
     
     # Used for sorting
-    def sort_order
-      @options[:sort_order] || 10
+    def priority
+      @options[:priority] || 10
     end
     
     # sort operator
     def <=>(other)
-      self.sort_order <=> other.sort_order
+      self.priority <=> other.priority
     end
 
   end

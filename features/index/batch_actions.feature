@@ -72,9 +72,9 @@ Feature: Batch Actions
 	And an index configuration of:
 	  """
 	  ActiveAdmin.register Post do
-		batch_action( :test, :sort_order => 3 ) {}
-		batch_action( :flag, :sort_order => 2 ) {}
-		batch_action( :unflag, :sort_order => 1 ) {}
+		batch_action( :test, :priority => 3 ) {}
+		batch_action( :flag, :priority => 2 ) {}
+		batch_action( :unflag, :priority => 1 ) {}
 	  end
 	  """
 

@@ -20,8 +20,9 @@ module ActiveAdmin
       collection_action :batch_action, :method => :post do
         config.batch_actions.each do |action|
           if params[:batch_action].to_sym == action.sym
-            selection = resource_class.find(params[:collection_selection]) rescue []
-            instance_exec selection, &action.block
+            selected_ids = params[:collection_selection]
+            selected_ids ||= []
+            instance_exec selected_ids, &action.block
             break
           end
         end
