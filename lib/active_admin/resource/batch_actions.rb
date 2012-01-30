@@ -10,7 +10,7 @@ module ActiveAdmin
       
       # @return [Hash] The set of batch actions for this resource
       def batch_actions_hash
-        @batch_actions_hash ||= { :destroy => default_batch_action }
+        @batch_actions_hash ||= controller.action_methods.include?('destroy') ? { :destroy => default_batch_action } : {}
       end
       
       # @return [ActiveAdmin::BatchAction] The default "delete" action
